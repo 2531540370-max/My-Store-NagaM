@@ -6,14 +6,17 @@ class Database {
 
     public static function connect(): PDO {
         if (self::$pdo === null) {
-            $host = 'localhost';
+            // Cấu hình XAMPP mặc định: MySQL/MariaDB trên máy hiện tại, cổng 3306.
+            // Nếu đã đổi cổng trong XAMPP Control Panel, cập nhật $port tại đây.
+            $host = '127.0.0.1';
+            $port = 3306;
             $dbname = 'store_nagamc';
             $username = 'root';
             $password = '';
 
             try {
                 self::$pdo = new PDO(
-                    "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+                    "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
                     $username,
                     $password,
                     [

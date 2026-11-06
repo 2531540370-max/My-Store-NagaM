@@ -18,6 +18,20 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Nhật ký sự kiện đăng nhập và thao tác trong ứng dụng để Admin giám sát.
+CREATE TABLE IF NOT EXISTS system_logs (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    event_type VARCHAR(40) NOT NULL,
+    severity ENUM('info', 'warning', 'error') NOT NULL DEFAULT 'info',
+    user_id INT DEFAULT NULL,
+    username VARCHAR(100) DEFAULT NULL,
+    ip_address VARCHAR(45) DEFAULT NULL,
+    message VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    KEY idx_system_logs_created_at (created_at),
+    KEY idx_system_logs_event_created (event_type, created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- 2. Bảng Danh mục vật phẩm (Mục 2)
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
