@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhập Mã OTP · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/qumk.css">
+</head>
+<body>
+  <main class="qumk">
+    <!-- Nền Ocean Monument & Lớp phủ gradient tối phía sau card -->
+    <div class="qumk__bg" aria-hidden="true"></div>
+    <div class="qumk__shade" aria-hidden="true"></div>
+
+    <div class="qumk__wrapper">
+      <!-- Cạnh trái dưới: Logo NAGAMC + Chữ QUÊN MẬT KHẨU theo Figma Node 105:108 & 105:109 -->
+      <div class="qumk-brand">
+        <img class="qumk-brand__logo" src="assets/images/login/nagamc-title.png" alt="NagaMC">
+        <h1 class="qumk-brand__title">QUÊN MẬT KHẨU</h1>
+      </div>
+
+      <!-- Cạnh phải: Thẻ Card Nhập OTP theo Figma Node 105:97 -->
+      <section class="qumk-card">
+        <h2 class="qumk-card__title">NHẬP MÃ OTP</h2>
+        <p class="qumk-card__desc">
+          Mã OTP đã được gửi đến mail : <span class="email-highlight" id="otp-user-email">...</span><br>
+          Vui lòng check hòm thư.
+        </p>
+
+        <div id="auth-alert" class="login-alert" role="alert" hidden></div>
+
+        <form id="form-otp" class="login-form" autocomplete="off" novalidate>
+          <!-- 6 Ô NHẬP MÃ OTP THEO FIGMA NODE 105:117 -->
+          <div class="otp-container" id="otp-inputs">
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required autofocus>
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+            <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+          </div>
+
+          <!-- Nút gửi tím phát sáng theo Figma Node 105:100 -->
+          <button type="submit" class="login-submit" aria-label="Xác nhận mã OTP">
+            <img src="assets/images/login/play.svg" alt="" width="51" height="51">
+          </button>
+        </form>
+
+        <div class="qumk-card__back">
+          <p>Chưa nhận được mã? <a href="#" id="btn-resend-otp">Gửi lại mã</a></p>
+          <p><a href="qumk.html">← Thay đổi email</a></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/otp.js"></script>
+</body>
+</html>

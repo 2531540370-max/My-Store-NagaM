@@ -1,0 +1,512 @@
+/* ==========================================================================
+   NAGAMC STORE — QUÊN MẬT KHẨU & XÁC THỰC OTP (qumk & otp)
+   Dựa theo thiết kế Figma frame "qumk" (Node 97:248) & "otp" (Node 105:70)
+   - Hình nền: wallpaper_minecraft_ocean_monument_1920x1080 (cố định toàn màn hình)
+   - Lớp phủ gradient tối từ PHẢI sang TRÁI (phía sau card)
+   - Layout Wrapper liên kết:
+     + Bên TRÁI: Logo NAGAMC + Tiêu đề lớn QUÊN MẬT KHẨU (64px) căn chuẩn cùng đáy với Card
+     + Bên PHẢI: Thẻ Card (652px) chứa Form Quên MK / 6 ô nhập mã OTP
+   ========================================================================== */
+
+:root {
+  --lg-font: 'Minecraft F2D V1.42', 'Minecraft', 'VT323', monospace;
+  --lg-bg: #141414;
+  --lg-card: rgba(24, 24, 24, 0.88);
+  --lg-field: #292929;
+  --lg-field-border: #5d5d5d;
+  --lg-muted: #9c9c9c;
+  --lg-text-sub: #bbb;
+  --lg-purple: #b400eb;
+  --lg-link: #c710fe;
+  --green-btn: rgba(37, 241, 1, 0.87);
+  --green-text: #5af33f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--lg-font);
+  background: var(--lg-bg);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---------- 1. NỀN OCEAN MONUMENT & SHADE TỐI BÊN PHẢI ---------- */
+.qumk__bg {
+  position: fixed;
+  inset: 0;
+  background: url('../images/login/wallpaper-ocean.png') center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.qumk__shade {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(1430px, 100%);
+  background: linear-gradient(to left, #141414 0%, rgba(20, 20, 20, 0.88) 45%, rgba(20, 20, 20, 0) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- 2. CONTAINER CHÍNH ---------- */
+.qumk {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px clamp(24px, 5vw, 124px) 40px clamp(24px, 4vw, 71px);
+  box-sizing: border-box;
+}
+
+/* KHUNG LIÊN KẾT GIỮA BRAND BÊN TRÁI VÀ CARD BÊN PHẢI (CHỐNG LỆCH KHI ZOOM) */
+.qumk__wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1840px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Khóa đáy Logo/Title và Card thẳng hàng tương quan với nhau */
+  gap: 48px;
+}
+
+/* ---------- 3. BRANDING BÊN TRÁI (NAGAMC TITLE + QUÊN MẬT KHẨU) ---------- */
+.qumk-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 750px;
+  margin-bottom: 24px; /* Tinh chỉnh khoảng cách so với đáy card đúng chuẩn Figma */
+  pointer-events: auto;
+}
+
+.qumk-brand__logo {
+  width: 406px;
+  max-width: 100%;
+  aspect-ratio: 406 / 94;
+  object-fit: contain;
+}
+
+.qumk-brand__title {
+  font-size: clamp(38px, 3.8vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 4px 4px 4px #000;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ---------- 4. THẺ CARD BÊN PHẢI (652px) ---------- */
+.qumk-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 652px;
+  min-height: 688px;
+  height: auto;
+  padding: 80px 56px 44px;
+  border-radius: 43px;
+  background: var(--lg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
+
+.qumk-card__title {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+}
+
+.qumk-card__desc {
+  margin-top: 18px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.43;
+  color: var(--lg-text-sub);
+  text-align: center;
+  max-width: 547px;
+}
+.qumk-card__desc .email-highlight {
+  color: #fff;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* Thông báo lỗi / thành công */
+.login-alert {
+  width: 100%;
+  max-width: 540px;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.login-alert.alert-error   { background: rgba(255, 70, 70, .18);  border: 1px solid rgba(255, 70, 70, .5); }
+.login-alert.alert-success { background: rgba(37, 241, 1, .15);   border: 1px solid rgba(37, 241, 1, .5); }
+.login-alert.alert-info    { background: rgba(180, 0, 235, .15);  border: 1px solid rgba(180, 0, 235, .5); }
+
+/* ---------- 5. FORM NHẬP EMAIL (CHO TRANG QUMK) ---------- */
+.login-form {
+  width: 100%;
+  max-width: 540px;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  width: 100%;
+  height: 98px;
+  padding: 0 33px;
+  font: 20px/1 var(--lg-font);
+  color: #fff;
+  background: var(--lg-field);
+  border: 1px solid var(--lg-field-border);
+  border-radius: 18px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.login-input + .login-input {
+  margin-top: 24px;
+}
+.login-input::placeholder { color: var(--lg-muted); opacity: 1; }
+.login-input:focus {
+  border-color: var(--lg-purple);
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, .25);
+}
+
+/* ---------- 6. 6 Ô NHẬP MÃ OTP (CHO TRANG OTP) ---------- */
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px; /* Đúng khoảng cách 13px trong Figma */
+  width: 100%;
+  max-width: 540px;
+  margin: 32px auto 0;
+}
+
+.otp-digit {
+  width: 76px;
+  height: 84px;
+  border-radius: 18px;
+  background: var(--lg-field);
+  border: 1px solid var(--lg-field-border);
+  text-align: center;
+  font: 36px/1 var(--lg-font);
+  color: #fff;
+  outline: none;
+  transition: all .2s ease;
+  caret-color: var(--lg-purple);
+}
+.otp-digit:focus {
+  border-color: var(--lg-purple);
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, .3);
+  transform: translateY(-2px);
+}
+.otp-digit.filled {
+  border-color: rgba(180, 0, 235, 0.7);
+  background: #30203a;
+}
+
+/* ---------- 7. NÚT SUBMIT TÍM PHÁT SÁNG (CỐ ĐỊNH KHOẢNG CÁCH, CHỐNG ĐÈ CHÈN) ---------- */
+.login-submit {
+  align-self: center;
+  width: 110px;
+  height: 110px;
+  margin-top: 36px;
+  margin-bottom: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(180, 0, 235, 0.2);
+  border: 1px solid rgba(180, 0, 235, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 0 25px -3px var(--lg-purple);
+  cursor: pointer;
+  outline: none;
+  transition: transform .15s, box-shadow .2s;
+  flex-shrink: 0;
+}
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px 0 var(--lg-purple);
+}
+.login-submit:disabled {
+  opacity: .6;
+  cursor: progress;
+}
+.login-submit img {
+  display: block;
+  width: 51px;
+  height: 51px;
+  pointer-events: none;
+}
+
+/* Các liên kết quay lại / gửi lại (Thuộc flow tự nhiên, KHÔNG absolute, có margin chống trùng nút play) */
+.qumk-card__back {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width: 100%;
+}
+.qumk-card__back a {
+  color: var(--lg-link);
+  text-decoration: none;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  transition: opacity .15s;
+}
+.qumk-card__back a:hover {
+  text-decoration: underline;
+  opacity: .9;
+}
+
+/* ==========================================================================
+   TỶ LỆ & KHOẢNG CÁCH CHO TRANG TẠO LẠI MẬT KHẨU (nlmk)
+   - Sử dụng flexbox tự nhiên, chống đè chèn nút Play lên các link
+   ========================================================================== */
+.nlmk-card {
+  min-height: 688px;
+  height: auto !important;
+  padding: 80px 56px 44px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.nlmk-title {
+  font-size: 32px;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.nlmk-form {
+  width: 100%;
+  max-width: 540px;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Khi có thông báo lỗi/thành công, tự động căn chỉnh khoảng cách đồng bộ */
+.login-alert:not([hidden]) + .nlmk-form {
+  margin-top: 24px;
+}
+
+.nlmk-input {
+  width: 100%;
+  height: 98px;
+  padding: 0 34px;
+  font: 20px/1 var(--lg-font);
+  color: #fff;
+  background: var(--lg-field);
+  border: 1px solid var(--lg-field-border);
+  border-radius: 18px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.nlmk-input + .nlmk-input {
+  margin-top: 24px !important; /* Đúng khoảng cách 24px giữa Ô 1 và Ô 2 */
+}
+
+.nlmk-submit {
+  width: 110px;
+  height: 110px;
+  margin-top: 36px !important;
+  margin-bottom: 24px !important;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(180, 0, 235, 0.2);
+  border: 1px solid rgba(180, 0, 235, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 0 25px -3px var(--lg-purple);
+  cursor: pointer;
+  outline: none;
+  transition: transform .15s, box-shadow .2s;
+  flex-shrink: 0;
+}
+
+.nlmk-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px 0 var(--lg-purple);
+}
+
+.nlmk-submit img {
+  display: block;
+  width: 51px;
+  height: 51px;
+  pointer-events: none;
+}
+
+.nlmk-back {
+  position: static !important; /* Bỏ position absolute hoàn toàn, chống đè nút Play */
+  margin-top: 8px !important;
+  margin-bottom: 16px !important;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE (TABLET & MOBILE) — CHỐNG ĐÈ CHÈN TRÙNG NÚT PLAY
+   ========================================================================== */
+@media (max-width: 1350px), (max-height: 850px) {
+  .qumk {
+    padding: 32px 20px 48px;
+    align-items: flex-start;
+  }
+  .qumk__wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .qumk__shade {
+    width: 100%;
+    background: rgba(20, 20, 20, 0.7);
+  }
+  .qumk-brand {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 0;
+    gap: 16px;
+  }
+  .qumk-brand__logo {
+    max-width: 280px;
+  }
+  .qumk-brand__title {
+    font-size: 36px;
+    white-space: normal;
+  }
+  .qumk-card {
+    max-width: 580px;
+    padding: 40px 28px 36px;
+    min-height: auto;
+  }
+  .qumk-card__title {
+    font-size: 26px;
+  }
+  .qumk-card__desc {
+    font-size: 18px;
+    margin-top: 14px;
+  }
+  .otp-digit {
+    width: 64px;
+    height: 72px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .qumk {
+    padding: 20px 14px 36px;
+  }
+  .qumk-brand__logo {
+    max-width: 220px;
+  }
+  .qumk-brand__title {
+    font-size: 28px;
+  }
+  .qumk-card {
+    padding: 32px 18px 28px;
+    border-radius: 28px;
+  }
+  .qumk-card__title {
+    font-size: 22px;
+  }
+  .qumk-card__desc {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .login-input {
+    height: 62px;
+    padding: 0 16px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+  .otp-container {
+    gap: 8px;
+  }
+  .otp-digit {
+    width: 44px;
+    height: 56px;
+    font-size: 22px;
+    border-radius: 12px;
+  }
+  .login-submit {
+    width: 80px;
+    height: 80px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .login-submit img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .qumk-card__back,
+  .nlmk-back {
+    margin-top: 4px !important;
+    margin-bottom: 12px !important;
+    flex-shrink: 0;
+  }
+
+  .nlmk-card {
+    height: auto !important;
+    min-height: auto;
+    padding: 40px 18px 40px !important;
+  }
+  .nlmk-title {
+    font-size: 24px;
+    line-height: 1.2;
+    height: auto;
+  }
+  .nlmk-form {
+    margin-top: 24px;
+  }
+  .nlmk-input + .nlmk-input {
+    margin-top: 16px !important;
+  }
+  .nlmk-submit {
+    margin-top: 24px !important;
+    margin-bottom: 20px !important;
+  }
+}

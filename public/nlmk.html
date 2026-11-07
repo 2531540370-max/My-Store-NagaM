@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạo Lại Mật Khẩu · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/qumk.css">
+</head>
+<body>
+  <main class="qumk">
+    <!-- Nền Ocean Monument & Lớp phủ gradient tối phía sau card theo Figma Node 108:160 & 108:161 -->
+    <div class="qumk__bg" aria-hidden="true"></div>
+    <div class="qumk__shade" aria-hidden="true"></div>
+
+    <div class="qumk__wrapper">
+      <!-- Cạnh trái dưới: Logo NAGAMC + Chữ QUÊN MẬT KHẨU (64px) theo Figma Node 108:185 & 108:184 -->
+      <div class="qumk-brand">
+        <img class="qumk-brand__logo" src="assets/images/login/nagamc-title.png" alt="NagaMC">
+        <h1 class="qumk-brand__title">QUÊN MẬT KHẨU</h1>
+      </div>
+
+      <!-- Cạnh phải: Thẻ Card Tạo Lại Mật Khẩu chuẩn tỉ lệ Figma Node 108:162 -->
+      <section class="qumk-card nlmk-card">
+        <h2 class="qumk-card__title nlmk-title">TẠO LẠI MẬT KHẨU</h2>
+
+        <div id="auth-alert" class="login-alert" role="alert" hidden></div>
+
+        <form id="form-nlmk" class="nlmk-form" autocomplete="off" novalidate>
+          <!-- Ô 1: Nhập mật khẩu (Figma Node 108:194: top 402px, h 98px) -->
+          <input class="login-input nlmk-input" type="password" id="nlmk-password" name="password"
+                 placeholder="NHẬP MẬT KHẨU" autocomplete="new-password" required autofocus>
+
+          <!-- Ô 2: Xác nhận lại mật khẩu (Figma Node 108:198: top 524px, h 98px, cách Ô 1 đúng 24px) -->
+          <input class="login-input nlmk-input" type="password" id="nlmk-confirm" name="confirm_password"
+                 placeholder="XÁC NHẬN LẠI MẬT KHẨU" autocomplete="new-password" required>
+
+          <!-- Nút gửi tím phát sáng (Figma Node 108:165: top 675px, size 110px, cách Ô 2 đúng 53px) -->
+          <button type="submit" class="login-submit nlmk-submit" aria-label="Xác nhận tạo lại mật khẩu">
+            <img src="assets/images/login/play.svg" alt="" width="51" height="51">
+          </button>
+        </form>
+
+        <div class="qumk-card__back nlmk-back">
+          <a href="login.html">← Quay lại Đăng nhập</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/nlmk.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quên Mật Khẩu · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/qumk.css">
+</head>
+<body>
+  <main class="qumk">
+    <!-- Nền Ocean Monument & Lớp phủ gradient tối phía sau card -->
+    <div class="qumk__bg" aria-hidden="true"></div>
+    <div class="qumk__shade" aria-hidden="true"></div>
+
+    <div class="qumk__wrapper">
+      <!-- Cạnh trái dưới: Logo NAGAMC + Chữ QUÊN MẬT KHẨU (64px) theo Figma Node 97:282 & 97:288 -->
+      <div class="qumk-brand">
+        <img class="qumk-brand__logo" src="assets/images/login/nagamc-title.png" alt="NagaMC">
+        <h1 class="qumk-brand__title">QUÊN MẬT KHẨU</h1>
+      </div>
+
+      <!-- Cạnh phải: Thẻ Form nhập thông tin theo Figma Node 97:279 -->
+      <section class="qumk-card">
+        <h2 class="qumk-card__title">NHẬP MAIL / TÊN NGƯỜI DÙNG</h2>
+        <p class="qumk-card__desc">Nhập mail hoặc tên người dùng đăng nhập vào tài khoản.</p>
+
+        <div id="auth-alert" class="login-alert" role="alert" hidden></div>
+
+        <form id="form-forgot" class="login-form" autocomplete="on" novalidate>
+          <input class="login-input" type="text" id="forgot-email" name="email"
+                 placeholder="MAIL / TÊN NGƯỜI DÙNG" autocomplete="username email" required autofocus>
+
+          <button type="submit" class="login-submit" aria-label="Xác nhận gửi">
+            <img src="assets/images/login/play.svg" alt="" width="51" height="51">
+          </button>
+        </form>
+
+        <div class="qumk-card__back">
+          <a href="login.html">← Quay lại Đăng nhập</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/qumk.js"></script>
+</body>
+</html>
