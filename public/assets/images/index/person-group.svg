@@ -1,0 +1,20 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="45.4095" height="41.6685" viewBox="0 0 45.4095 41.6685" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group" filter="url(#filter0_d_0_22)">
+<path id="Vector" d="M11.4819 20.8343H13.3524V22.7047H24.5752V20.8343H26.4457V18.9638H28.3162V7.74095H26.4457V5.87047H24.5752V4H13.3524V5.87047H11.4819V7.74095H9.61142V18.9638H11.4819V20.8343ZM13.3524 11.4819H15.2228V9.61142H17.0933V7.74095H20.8343V9.61142H22.7047V11.4819H24.5752V15.2228H22.7047V17.0933H20.8343V18.9638H17.0933V17.0933H15.2228V15.2228H13.3524V11.4819Z" fill="#5AF33F"/>
+<path id="Vector_2" d="M30.1866 26.4457H28.3161V24.5752H7.74095V26.4457H5.87047V28.3161H4V37.6685H7.74095V32.0571H9.61142V30.1866H11.4819V28.3161H24.5752V30.1866H26.4457V32.0571H28.3161V37.6685H32.0571V28.3161H30.1866V26.4457Z" fill="#5AF33F"/>
+<path id="Vector_3" d="M33.9276 20.8343H35.798V18.9638H37.6685V7.74095H35.798V5.87047H33.9276V4H32.0571H30.1866V9.61142H32.0571V11.4819H33.9276V13.3524V15.2228H32.0571V17.0933H30.1866V22.7047H33.9276V20.8343Z" fill="#5AF33F"/>
+<path id="Vector_4" d="M39.539 28.3161V26.4457H37.6685V24.5752H33.9276V30.1866H35.798V32.0571H37.6685V37.6685H41.4095V28.3161H39.539Z" fill="#5AF33F"/>
+</g>
+<defs>
+<filter id="filter0_d_0_22" x="-1.58946e-07" y="0" width="45.4095" height="41.6685" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.351581 0 0 0 0 0.954808 0 0 0 0 0.245129 0 0 0 0.67 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_22"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_22" result="shape"/>
+</filter>
+</defs>
+</svg>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạo Tài Khoản · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/register.css">
+  <!-- Thư viện API chính thức của Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+  <!-- Nền Minecraft Caves & Cliffs theo chuẩn Figma frame "danhki" (Node 108:135) -->
+  <div class="register-bg" aria-hidden="true"></div>
+  <div class="register-overlay" aria-hidden="true"></div>
+
+  <main class="register-viewport">
+    <div class="register-wrapper">
+      <!-- Logo NAGAMC-TITLE căn đỉnh phía trên thẻ -->
+      <img class="register-logo" src="assets/images/login/nagamc-title.png" alt="NagaMC Store">
+
+      <!-- Thẻ chính (Card) căn giữa 652px -->
+      <section class="register-card">
+        <h1 class="register-title">TẠO TÀI KHOẢN</h1>
+
+        <!-- Hộp thông báo phản hồi từ Backend -->
+        <div id="auth-alert" class="register-alert" role="alert" hidden></div>
+
+        <!-- Biểu mẫu nhập liệu 4 trường theo đúng thứ tự Figma -->
+        <form id="form-register" class="register-form" autocomplete="on" novalidate>
+          
+          <!-- 1. Email -->
+          <input class="register-input" type="email" id="reg-email" name="email"
+                 placeholder="Email" autocomplete="email" required autofocus>
+
+          <!-- 2. Tên tài khoản -->
+          <input class="register-input" type="text" id="reg-username" name="username"
+                 placeholder="Tên tài khoản" autocomplete="username" required>
+
+          <!-- 3. Mật khẩu -->
+          <input class="register-input" type="password" id="reg-password" name="password"
+                 placeholder="Mật khẩu" autocomplete="new-password" required>
+
+          <!-- 4. Nhập lại mật khẩu -->
+          <input class="register-input" type="password" id="reg-confirm" name="confirm_password"
+                 placeholder="Nhập lại mật khẩu" autocomplete="new-password" required>
+
+          <!-- 5. Hàng điều khoản với checkbox và chữ NagaMC tím -->
+          <div class="register-terms">
+            <label class="register-check">
+              <input type="checkbox" id="reg-terms" name="terms" required checked>
+              <span class="register-check__box" aria-hidden="true"></span>
+              <span>Đồng ý với Điều khoản của <a href="#terms" class="register-terms__brand">NagaMC</a></span>
+            </label>
+          </div>
+
+          <!-- 6. Ô ĐEN VERIFY CLOUDFLARE BÊN DƯỚI NÚT ĐIỀU KHOẢN (FIGMA NODE 113:83) -->
+          <div class="register-cf-box" id="cf-turnstile-container" title="Xác thực bảo mật Cloudflare Turnstile">
+            <div class="cf-turnstile" id="cf-turnstile-widget"
+                 data-sitekey="0x4AAAAAAF2aRkAHo9L7uJl7"
+                 data-theme="dark"
+                 data-size="normal"></div>
+          </div>
+
+          <!-- 7. Nút gửi phát sáng màu tím với icon Play (110px x 110px) -->
+          <button type="submit" class="register-submit" aria-label="Tạo tài khoản">
+            <img src="assets/images/login/play.svg" alt="" width="51" height="51">
+          </button>
+        </form>
+
+        <!-- 8. Liên kết quay lại đăng nhập -->
+        <p class="register-card__login">
+          Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/register.js"></script>
+</body>
+</html>

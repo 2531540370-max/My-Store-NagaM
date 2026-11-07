@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+  <main class="login">
+    <div class="login__bg" aria-hidden="true"></div>
+    <div class="login__shade" aria-hidden="true"></div>
+
+    <div class="login__inner">
+      <section class="login-card">
+        <img class="login-card__logo" src="assets/images/login/nagamc-title.png" alt="NagaMC">
+
+        <h1 class="login-card__title">ĐĂNG NHẬP</h1>
+
+        <div id="auth-alert" class="login-alert" role="alert" hidden></div>
+
+        <form id="form-login" class="login-form" autocomplete="on" novalidate>
+          <input class="login-input" type="text" id="login-username" name="username"
+                 placeholder="MAIL / TÊN NGƯỜI DÙNG" autocomplete="username" required autofocus>
+          <input class="login-input" type="password" id="login-password" name="password"
+                 placeholder="MẬT KHẨU" autocomplete="current-password" required>
+
+          <div class="login-form__row">
+            <label class="login-check">
+              <input type="checkbox" id="login-remember" name="remember" checked>
+              <span class="login-check__box" aria-hidden="true"></span>
+              <span>Ghi nhớ đăng nhập</span>
+            </label>
+            <a class="login-link" href="qumk.html">Quên mật khẩu?</a>
+          </div>
+
+          <button type="submit" class="login-submit" aria-label="Đăng nhập">
+            <img src="assets/images/login/play.svg" alt="" width="51" height="51">
+          </button>
+        </form>
+
+        <p class="login-card__register">
+          Chưa có tài khoản? <a href="danhki.html">Đăng kí</a>
+        </p>
+      </section>
+
+      <!-- Nút tải Minecraft: Trên Desktop bám góc phải dưới, trên mobile nằm dưới thẻ -->
+      <a class="login-download" href="https://llaun.ch/en" target="_blank" rel="noopener">
+        <img class="login-download__icon" src="assets/images/login/download.svg" alt="" aria-hidden="true">
+        <span class="login-download__label">TẢI MINECRAFT</span>
+      </a>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+/* ==========================================================================
+   NAGAMC STORE — TIÊU CHUẨN AUTH (ĐĂNG NHẬP, QUÊN MẬT KHẨU, ĐĂNG KÝ)
+   Quy chuẩn layout:
+   - Toàn màn hình, hỗ trợ zoom in / zoom out mượt mà
+   - Thẻ form (login-card) luôn bám sát cạnh TRÁI (left anchor)
+   - Nút tải Minecraft (login-download) bám cứng góc PHẢI BÊN DƯỚI (bottom-right anchor)
+   - Tự động chuyển về dạng khối dọc trên tablet / mobile tránh đè nội dung
+   ========================================================================== */
+
+:root {
+  --lg-font: 'Minecraft F2D V1.42', 'Minecraft', 'VT323', monospace;
+  --lg-bg: #141414;
+  --lg-card: rgba(24, 24, 24, 0.88);
+  --lg-field: #292929;
+  --lg-field-border: #5d5d5d;
+  --lg-muted: #9c9c9c;
+  --lg-purple: #b400eb;
+  --lg-link: #c710fe;
+  --lg-green: rgba(37, 241, 1, 0.87);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--lg-font);
+  background: var(--lg-bg);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---------- 1. NỀN WALLPAPER & LỚP PHỦ GRADIENT TỐI ---------- */
+/* Sử dụng position: fixed để khi zoom in / zoom out hay cuộn trang, nền luôn phủ kín viewport */
+.login__bg {
+  position: fixed;
+  inset: 0;
+  background: url('../images/login/wallpaper.png') center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.login__shade {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(1350px, 100%);
+  background: linear-gradient(to right, #141414 0%, rgba(20, 20, 20, 0.88) 45%, rgba(20, 20, 20, 0) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- 2. CONTAINER CHÍNH: BÁM CẠNH TRÁI MÀN HÌNH ---------- */
+.login {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* Khoảng đệm trái linh hoạt: khi zoom ra zoom vào luôn neo sát cạnh trái */
+  padding: 40px clamp(16px, 4vw, 40px) 40px clamp(24px, 8vw, 157px);
+}
+
+/* Wrapper thẻ form */
+.login__inner {
+  position: relative;
+  width: 100%;
+  max-width: 652px;
+}
+
+/* ---------- 3. THẺ FORM (CARD) ---------- */
+.login-card {
+  position: relative;
+  width: 100%;
+  padding: 66px 60px 48px;
+  border-radius: 43px;
+  background: var(--lg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.login-card__logo {
+  width: 407px;
+  max-width: 100%;
+  aspect-ratio: 407 / 94;
+  object-fit: cover;
+}
+
+.login-card__title {
+  margin-top: 85px;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.login-card__desc {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--lg-muted);
+  text-align: center;
+}
+
+.login-alert {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.login-alert.alert-error   { background: rgba(255, 70, 70, .18);  border: 1px solid rgba(255, 70, 70, .5); }
+.login-alert.alert-success { background: rgba(37, 241, 1, .15);   border: 1px solid rgba(37, 241, 1, .5); }
+.login-alert.alert-info    { background: rgba(180, 0, 235, .15);  border: 1px solid rgba(180, 0, 235, .5); }
+
+/* ---------- 4. FORM & Ô NHẬP LIỆU ---------- */
+.login-form {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  width: 100%;
+  height: 98px;
+  padding: 0 33px;
+  margin-bottom: 31px;
+  font: 20px/1 var(--lg-font);
+  color: #fff;
+  background: var(--lg-field);
+  border: 1px solid var(--lg-field-border);
+  border-radius: 18px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.login-input::placeholder { color: var(--lg-muted); opacity: 1; }
+.login-input:focus {
+  border-color: var(--lg-purple);
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, .25);
+}
+
+.login-form__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: -2px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.login-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--lg-muted);
+  cursor: pointer;
+}
+.login-check input { position: absolute; opacity: 0; pointer-events: none; }
+.login-check__box {
+  width: 25px;
+  height: 25px;
+  flex: none;
+  background: #353535;
+  border: 1px solid #6e6e6e;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+}
+.login-check input:checked + .login-check__box::after {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--lg-link);
+}
+.login-check input:focus-visible + .login-check__box {
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, .4);
+}
+
+.login-link,
+.login-card__links a,
+.login-card__register a {
+  color: var(--lg-link);
+  text-decoration: none;
+}
+.login-link { text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); }
+.login-link:hover,
+.login-card__links a:hover,
+.login-card__register a:hover { text-decoration: underline; }
+
+/* ---------- 5. NÚT SUBMIT (NÚT TÍM - PLAY ICON CĂN GIỮA CHUẨN, CHỐNG ĐÈ CHÈN) ---------- */
+.login-submit {
+  align-self: center;
+  width: 110px;
+  height: 110px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(180, 0, 235, 0.2);
+  border: 1px solid rgba(180, 0, 235, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 0 25px -3px var(--lg-purple);
+  cursor: pointer;
+  outline: none;
+  transition: transform .15s, box-shadow .2s;
+  flex-shrink: 0;
+}
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px 0 var(--lg-purple);
+}
+.login-submit:disabled {
+  opacity: .6;
+  cursor: progress;
+}
+.login-submit img {
+  display: block;
+  width: 51px;
+  height: 51px;
+  pointer-events: none;
+}
+
+.login-card__register,
+.login-card__links {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--lg-muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ---------- 6. NÚT TẢI MINECRAFT (BÁM CẠNH PHẢI DƯỚI CÙNG VIEWPORT) ---------- */
+/* Desktop / Màn hình rộng / Khi zoom ra zoom vào: Bám cứng góc phải bên dưới */
+.login-download {
+  position: fixed;
+  right: clamp(24px, 5vw, 90px);
+  bottom: clamp(24px, 5vh, 60px);
+  z-index: 20;
+  width: 360px;
+  height: 106px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: var(--lg-green);
+  border: 1px solid #bdffb1;
+  border-radius: 21px;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .2s;
+}
+.login-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 241, 1, 0.35);
+}
+
+.login-download__icon {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  display: block;
+}
+
+.login-download__label {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.33);
+}
+
+/* ---------- 7. RESPONSIVE & ADAPTIVE LAYOUT ---------- */
+/* Chống đè chèn nút Play & Card: khi chiều cao nhỏ hoặc zoom to, cho phép cuộn tự nhiên */
+@media (max-height: 920px) {
+  .login {
+    align-items: flex-start;
+  }
+}
+
+/* Tablet, laptop màn hình chuẩn (1366x768, 1280x800) hoặc khi zoom: Chuyển nút tải thành flow tự nhiên dưới thẻ */
+@media (max-width: 1450px), (max-height: 920px) {
+  .login {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 32px 24px 48px;
+  }
+  .login__inner {
+    max-width: 652px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .login-download {
+    position: static;
+    margin-top: 28px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+}
+
+/* Điện thoại di động */
+@media (max-width: 700px) {
+  .login {
+    padding: 16px;
+  }
+  .login__shade {
+    width: 100%;
+    background: rgba(20, 20, 20, .6);
+  }
+  .login__inner {
+    max-width: 100%;
+  }
+  .login-card {
+    padding: 32px 20px 28px;
+    border-radius: 28px;
+  }
+  .login-card__logo {
+    max-width: 280px;
+  }
+  .login-card__title {
+    margin-top: 28px;
+    font-size: 26px;
+  }
+  .login-card__desc {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .login-form {
+    margin-top: 20px;
+  }
+  .login-input {
+    height: 64px;
+    padding: 0 18px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+  .login-form__row {
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .login-submit {
+    width: 88px;
+    height: 88px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .login-submit img {
+    width: 40px;
+    height: 40px;
+  }
+  .login-card__register,
+  .login-card__links {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .login-download {
+    position: static;
+    width: 100%;
+    height: 76px;
+    padding: 0 16px;
+    gap: 12px;
+    border-radius: 16px;
+    margin-top: 20px;
+  }
+  .login-download__icon {
+    width: 32px;
+    height: 32px;
+  }
+  .login-download__label {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-download__label {
+    font-size: 18px;
+  }
+  .login-card__title {
+    font-size: 22px;
+  }
+}

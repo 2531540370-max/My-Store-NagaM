@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Chủ · NagaMC Store</title>
+  <link rel="icon" type="image/png" href="assets/images/banners/NBLRB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+
+  <!-- =====================================================================
+       1. SIDEBAR (DASHBAR BÊN TRÁI 132px - CĂN CHUẨN THẲNG ĐỨNG)
+       ===================================================================== -->
+  <aside class="dashbar">
+    <a href="index.html" title="NagaMC Store">
+      <img class="dashbar__logo" src="assets/images/index/ng1.png" alt="NagaMC Logo">
+    </a>
+
+    <nav class="dashbar__nav">
+      <!-- Nút Trang chủ (Active theo chuẩn Figma) -->
+      <a class="dashbar__btn dashbar__btn--home" href="index.html" aria-label="Trang chủ" title="Trang chủ">
+        <span class="home-indicator" aria-hidden="true"></span>
+        <span class="home-glow-box">
+          <svg class="home-icon" viewBox="0 0 31 31">
+            <path d="M29.43 8.35V6.8H26.33V5.25H23.23V3.7H20.14V2.15H10.84V3.7H7.74V5.25H4.65V6.8H1.55V8.35H0V11.45H1.55V26.94H0V30.04H13.94V19.2H17.04V30.04H30.98V26.94H29.43V11.45H30.98V8.35H29.43ZM26.33 26.94H20.14V16.1H10.84V26.94H4.65V9.9H7.74V8.35H10.84V6.8H13.94V5.25H17.04V6.8H20.14V8.35H23.23V9.9H26.33V26.94Z"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Tài khoản / Đăng nhập -->
+      <a class="dashbar__btn" href="login.html" aria-label="Tài khoản" title="Tài khoản">
+        <img src="assets/images/index/person.svg" alt="Account">
+      </a>
+
+      <!-- Cửa hàng vật phẩm -->
+      <a class="dashbar__btn" href="#shop" aria-label="Cửa hàng" title="Cửa hàng">
+        <img src="assets/images/index/cart.svg" alt="Shop">
+      </a>
+
+      <!-- Điều khoản & Hướng dẫn -->
+      <a class="dashbar__btn" href="#terms" aria-label="Điều khoản" title="Điều khoản">
+        <img src="assets/images/index/copy-doc.svg" alt="Terms">
+      </a>
+
+      <!-- Cộng đồng / Diễn đàn -->
+      <a class="dashbar__btn" href="#community" aria-label="Cộng đồng" title="Cộng đồng">
+        <img src="assets/images/index/bubble.svg" alt="Community">
+      </a>
+    </nav>
+
+    <!-- Nút Cài đặt (Dưới cùng) -->
+    <div class="dashbar__footer">
+      <a class="dashbar__btn dashbar__btn--settings" href="#settings" aria-label="Cài đặt" title="Cài đặt">
+        <img src="assets/images/index/settings-btn.svg" alt="Settings">
+      </a>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       2. NỘI DUNG CHÍNH (MAIN LAYOUT)
+       ===================================================================== -->
+  <main class="main-layout">
+
+    <!-- ========== HEADER ROW ========== -->
+    <header class="header-bar">
+      <!-- Nhóm mạng xã hội + Số người online -->
+      <div class="header-left">
+        <div class="social-bar">
+          <a class="social-link" href="https://discord.gg" target="_blank" rel="noopener" title="Discord">
+            <img src="assets/images/index/social-1.svg" alt="Discord">
+          </a>
+          <a class="social-link" href="https://facebook.com" target="_blank" rel="noopener" title="Facebook">
+            <img src="assets/images/index/social-2.svg" alt="Facebook">
+          </a>
+          <a class="social-link" href="https://youtube.com" target="_blank" rel="noopener" title="YouTube">
+            <img src="assets/images/index/social-3.svg" alt="YouTube">
+          </a>
+          <a class="social-link" href="https://tiktok.com" target="_blank" rel="noopener" title="TikTok">
+            <img src="assets/images/index/social-4.svg" alt="TikTok">
+          </a>
+          <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener" title="Instagram">
+            <img src="assets/images/index/social-5.svg" alt="Instagram">
+          </a>
+          <a class="social-link" href="https://threads.net" target="_blank" rel="noopener" title="Threads">
+            <img src="assets/images/index/social-6.svg" alt="Social">
+          </a>
+        </div>
+
+        <div class="online-status">
+          <img class="online-status__icon" src="assets/images/index/person-group.svg" alt="" aria-hidden="true">
+          <p class="online-status__text">
+            <span class="online-status__count">20</span>
+            <span class="online-status__label">Người chơi đang hoạt động</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Nhóm Sao chép IP Server + Nút Thông báo -->
+      <div class="header-right">
+        <div class="ip-widget" id="ip-copy-widget" title="Bấm để sao chép địa chỉ IP">
+          <div class="ip-widget__pill">IP: NAGAMC.LIVE</div>
+          <button class="ip-widget__copy-btn" aria-label="Sao chép IP máy chủ">
+            <img src="assets/images/index/paste-doc.svg" alt="Copy">
+          </button>
+        </div>
+
+        <button class="notif-btn" id="notif-btn" aria-label="Thông báo hệ thống">
+          <img src="assets/images/index/call-on.svg" alt="Notifications">
+          <span class="notif-badge">36</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========== MIDDLE ROW: HERO BANNER & USER PROFILE ========== -->
+    <section class="middle-row">
+
+      <!-- HERO BANNER -->
+      <article class="hero-card">
+        <div class="hero-content">
+          <img class="hero-logo" src="assets/images/index/nagamc-logo.png" alt="NagaMC">
+          
+          <div class="hero-badge">MÁY CHỦ MINECRAFT VANILA</div>
+
+          <div class="hero-desc">
+            <p>Tại NAGA MC, chúng tôi giữ trọn vẹn những giá trị cốt lõi nhất của Minecraft. Không có những cơ chế tùy biến quá phức tạp làm mất đi bản chất của trò chơi, chúng tôi mang tới một không gian sinh tồn thuần túy nơi kỹ năng, óc sáng tạo và sự phối hợp của bạn quyết định tất cả.</p>
+            <p>Khám phá thế giới bao la, xây dựng những công trình vĩ đại, khai thác tài nguyên và sinh tồn cùng những người bạn đồng hành trong một môi trường công bằng, không Pay-to-Win.</p>
+          </div>
+
+          <!-- Nút tải Minecraft ở GÓC TRÁI BÊN DƯỚI của ô Hero -->
+          <a class="hero-download-btn" href="https://llaun.ch/en" target="_blank" rel="noopener">
+            <img src="assets/images/index/download.svg" alt="" aria-hidden="true">
+            <span>TẢI MINECRAFT</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- USER PROFILE QUICK WIDGET (STEVE ĐỨNG ĐÚNG VỊ TRÍ FIGMA) -->
+      <aside class="profile-widget">
+        <!-- Steve Avatar nhô lên 193px trên đỉnh card, đứng chạm vào vạch tím -->
+        <div class="profile-avatar-wrap">
+          <img class="profile-avatar-glow" src="assets/images/index/steve-glow.svg" alt="" aria-hidden="true">
+          <img class="profile-avatar-img" src="assets/images/index/steve.png" alt="Steve Avatar">
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-accent-bar" aria-hidden="true"></div>
+
+          <div class="profile-username" id="profile-display-name">peter</div>
+
+          <div class="profile-actions">
+            <div class="profile-btn-row">
+              <a class="profile-btn-main" id="profile-action-btn" href="login.html">Đăng nhập</a>
+              <button class="profile-btn-icon" id="profile-logout-btn" aria-label="Đăng xuất" title="Đăng xuất">
+                <img src="assets/images/index/block-person.svg" alt="">
+              </button>
+            </div>
+
+            <a class="profile-btn-sub" href="#history">Lịch sử thanh toán</a>
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- ========== BOTTOM ROW: BẢN TIN & THÔNG BÁO MÁY CHỦ (NEWS SECTION) ========== -->
+    <section class="news-section">
+      <div class="news-header">
+        <h2 class="news-title">TIN TỨC MÁY CHỦ</h2>
+        <a class="news-more-link" href="#news">
+          <span>Xem thêm</span>
+          <img src="assets/images/index/left-arrow.svg" alt="">
+        </a>
+      </div>
+
+      <div class="news-grid">
+        <!-- Bài viết 1 -->
+        <article class="news-card">
+          <div class="news-card__top">
+            <span class="news-card__tag tag--update">CẬP NHẬT</span>
+            <span class="news-card__date">05/11/2026</span>
+          </div>
+          <h3 class="news-card__title">Khai Mở Máy Chủ NagaMC Mùa 2 - Trải Nghiệm Trial Chambers</h3>
+          <p class="news-card__desc">Cập nhật toàn diện phiên bản 1.21+ với hệ thống hầm ngục Trial Spawner, bùa chú mới và cân bằng tài nguyên sinh tồn thuần Vanilla.</p>
+          <a class="news-card__read" href="#news">Đọc tiếp →</a>
+        </article>
+
+        <!-- Bài viết 2 -->
+        <article class="news-card">
+          <div class="news-card__top">
+            <span class="news-card__tag tag--event">SỰ KIỆN</span>
+            <span class="news-card__date">02/11/2026</span>
+          </div>
+          <h3 class="news-card__title">Đua Top Xây Dựng & Trang Trí Khu Sinh Tồn Cộng Đồng</h3>
+          <p class="news-card__desc">Sự kiện sáng tạo dành cho các builder tài năng. Tham gia gửi bài dự thi công trình ấn tượng để nhận phần quà và danh hiệu đặc biệt.</p>
+          <a class="news-card__read" href="#news">Đọc tiếp →</a>
+        </article>
+
+        <!-- Bài viết 3 -->
+        <article class="news-card">
+          <div class="news-card__top">
+            <span class="news-card__tag tag--guide">HƯỚNG DẪN</span>
+            <span class="news-card__date">28/10/2026</span>
+          </div>
+          <h3 class="news-card__title">Tối Ưu FPS & Hướng Dẫn Cài Modpack Chơi Mượt Trên PC Yếu</h3>
+          <p class="news-card__desc">Tổng hợp các mod tối ưu hóa hiệu năng Sodium, Lithium, Iris Shader giúp đạt 120+ FPS ổn định khi tham gia máy chủ nagamc.live.</p>
+          <a class="news-card__read" href="#news">Đọc tiếp →</a>
+        </article>
+
+        <!-- Bài viết 4 -->
+        <article class="news-card">
+          <div class="news-card__top">
+            <span class="news-card__tag tag--system">HỆ THỐNG</span>
+            <span class="news-card__date">20/10/2026</span>
+          </div>
+          <h3 class="news-card__title">Nâng Cấp Hạ Tầng Mạng Chống DDoS & Đảm Bảo 20 TPS 24/7</h3>
+          <p class="news-card__desc">Hoàn tất nâng cấp cụm máy chủ phần cứng mới tại trung tâm dữ liệu Việt Nam, mang lại ping dưới 15ms cho tất cả người chơi.</p>
+          <a class="news-card__read" href="#news">Đọc tiếp →</a>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Thông Báo Tiện Ích -->
+  <div id="app-toast" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/index.js"></script>
+</body>
+</html>

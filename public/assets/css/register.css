@@ -1,0 +1,470 @@
+/* ==========================================================================
+   NAGAMC STORE — GIAO DIỆN ĐĂNG KÝ TÀI KHOẢN (FIGMA FRAME "DANHKI" NODE 108:135)
+   Thiết kế chuẩn tỉ lệ 1920x1080:
+   - Nền: wallpaper_minecraft_trickytrials_1920x1080 (cố định toàn màn hình)
+   - Khung thẻ (Card): 652px căn giữa màn hình (Horizontally & Vertically centered)
+   - Logo NAGAMC-TITLE căn đỉnh trên card
+   - Tiêu đề TẠO TÀI KHOẢN (32px, text shadow 4px 4px 4px rgba(0,0,0,0.25))
+   - 4 ô nhập: Email, Tên tài khoản, Mật khẩu, Nhập lại mật khẩu (rộng 496px, cao 90px)
+   - Hàng điều khoản với checkbox bo góc 7px và chữ "NagaMC" màu tím (#b400eb)
+   - Ô đen Cloudflare Verify (276px x 86px) bên dưới nút điều khoản
+   - Nút gửi tím phát sáng với icon Play căn giữa (110px x 110px)
+   - Hàng chuyển hướng "Đã có tài khoản? Đăng nhập"
+   ========================================================================== */
+
+:root {
+  --rg-font: 'Minecraft F2D V1.42', 'Minecraft', 'VT323', monospace;
+  --rg-bg: #141414;
+  --rg-card: rgba(24, 24, 24, 0.88);
+  --rg-card-border: rgba(255, 255, 255, 0.16);
+  --rg-field: #292929;
+  --rg-field-border: #5d5d5d;
+  --rg-muted: #9c9c9c;
+  --rg-purple: #b400eb;
+  --rg-link: #c710fe;
+  --rg-dark-box: #00040d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--rg-font);
+  background-color: var(--rg-bg);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- 1. NỀN WALLPAPER CAVES & CLIFFS THEO FIGMA FRAME DANHKI ---------- */
+.register-bg {
+  position: fixed;
+  inset: 0;
+  background: url('../images/login/wallpaper-caves.png') center center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Lớp phủ tối nhẹ để tăng độ tương phản của card */
+.register-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- 2. CONTAINER CĂN GIỮA TOÀN MÀN HÌNH ---------- */
+.register-viewport {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px 60px;
+}
+
+@media (max-height: 980px) {
+  .register-viewport {
+    justify-content: flex-start;
+  }
+}
+
+/* ---------- 3. LOGO VÀ KHUNG THẺ (CARD) ---------- */
+.register-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 652px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo NAGAMC đặt phía trên đỉnh card theo đúng bản vẽ Figma */
+.register-logo {
+  width: 407px;
+  max-width: 85%;
+  aspect-ratio: 407 / 94;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+}
+
+.register-card {
+  position: relative;
+  width: 100%;
+  background: var(--rg-card);
+  border: 1px solid var(--rg-card-border);
+  border-radius: 43px;
+  box-shadow: 0 0 121px 0 rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 42px 48px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tiêu đề "TẠO TÀI KHOẢN" */
+.register-title {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+/* Khung thông báo lỗi / thành công */
+.register-alert {
+  width: 100%;
+  max-width: 496.5px;
+  margin-bottom: 18px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 16px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+.register-alert.alert-error {
+  background: rgba(255, 60, 60, 0.22);
+  border: 1px solid rgba(255, 80, 80, 0.55);
+  color: #ff9b9b;
+}
+.register-alert.alert-success {
+  background: rgba(37, 241, 1, 0.2);
+  border: 1px solid rgba(37, 241, 1, 0.55);
+  color: #7aff6b;
+}
+.register-alert.alert-info {
+  background: rgba(180, 0, 235, 0.22);
+  border: 1px solid rgba(180, 0, 235, 0.55);
+  color: #e58aff;
+}
+
+/* ---------- 4. FORM & CÁC Ô NHẬP LIỆU (INPUTS) ---------- */
+.register-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Kích thước chuẩn Figma: rộng 496.488px, cao 90.103px, bo góc 18px */
+.register-input {
+  width: 100%;
+  max-width: 496.5px;
+  height: 90px;
+  padding: 0 28px;
+  margin-bottom: 16px;
+  font: 20px/1 var(--rg-font);
+  color: #fff;
+  background: var(--rg-field);
+  border: 1px solid var(--rg-field-border);
+  border-radius: 18px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.register-input::placeholder {
+  color: var(--rg-muted);
+  opacity: 1;
+}
+
+.register-input:focus {
+  border-color: var(--rg-purple);
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, 0.35);
+  background: #303030;
+}
+
+/* ---------- 5. HÀNG ĐIỀU KHOẢN (TERMS ROW) ---------- */
+.register-terms {
+  width: 100%;
+  max-width: 496.5px;
+  margin-top: 2px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.register-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--rg-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.register-check input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.register-check__box {
+  width: 23px;
+  height: 23px;
+  flex: none;
+  background: #353535;
+  border: 1px solid #6e6e6e;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.register-check input:checked + .register-check__box::after {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--rg-purple);
+}
+
+.register-check input:focus-visible + .register-check__box {
+  box-shadow: 0 0 0 3px rgba(180, 0, 235, 0.4);
+}
+
+.register-terms__brand {
+  color: var(--rg-purple);
+  text-decoration: none;
+  font-weight: bold;
+}
+.register-terms__brand:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 6. Ô ĐEN VERIFY CLOUDFLARE (NODE 113:83) ---------- */
+/* Chuẩn kích thước và giao diện tối ưu cho widget Cloudflare Turnstile */
+.register-cf-box {
+  width: 300px;
+  max-width: 100%;
+  min-height: 70px;
+  margin: 4px auto 26px;
+  background: var(--rg-dark-box);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.4);
+  padding: 4px;
+}
+
+.register-cf-box .cf-turnstile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khối giả lập widget Cloudflare Turnstile tương thích với chuẩn Figma */
+.cf-mock-widget {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.cf-mock-widget:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cf-mock-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cf-mock-checkbox {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #5a5a5a;
+  border-radius: 5px;
+  background: #1b1b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.cf-mock-widget.verified .cf-mock-checkbox {
+  border-color: #00e676;
+  background: #004d25;
+}
+
+.cf-mock-checkmark {
+  display: none;
+  width: 16px;
+  height: 16px;
+  stroke: #00e676;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cf-mock-widget.verified .cf-mock-checkmark {
+  display: block;
+}
+
+.cf-mock-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #f38020;
+  border-radius: 50%;
+  animation: cf-spin 0.7s linear infinite;
+}
+
+.cf-mock-widget.verifying .cf-mock-spinner {
+  display: block;
+}
+.cf-mock-widget.verifying .cf-mock-checkbox {
+  border-color: #f38020;
+}
+
+@keyframes cf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cf-mock-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  color: #e0e0e0;
+  line-height: 1.2;
+}
+
+.cf-mock-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.85;
+}
+
+.cf-mock-logo {
+  width: 26px;
+  height: 26px;
+}
+
+.cf-mock-caption {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 9px;
+  color: #888;
+  letter-spacing: 0.2px;
+}
+
+/* ---------- 7. NÚT SUBMIT (NÚT TÍM PHÁT SÁNG THEO FIGMA NODE 109:206) ---------- */
+.register-submit {
+  width: 110px;
+  height: 110px;
+  margin-bottom: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(180, 0, 235, 0.2);
+  border: 1px solid rgba(180, 0, 235, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 0 25px -3px var(--rg-purple);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.register-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 34px 2px var(--rg-purple);
+}
+
+.register-submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ---------- 8. LIÊN KẾT ĐÃ CÓ TÀI KHOẢN ---------- */
+.register-card__login {
+  font-size: 16px;
+  color: var(--rg-muted);
+  text-align: center;
+}
+
+.register-card__login a {
+  color: var(--rg-link);
+  text-decoration: none;
+  transition: text-decoration 0.15s;
+}
+
+.register-card__login a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 9. RESPONSIVE (MOBILE & TABLET) ---------- */
+@media (max-width: 768px) {
+  .register-card {
+    padding: 32px 20px 36px;
+    border-radius: 32px;
+  }
+
+  .register-logo {
+    width: 320px;
+  }
+
+  .register-title {
+    font-size: 26px;
+    margin-bottom: 18px;
+  }
+
+  .register-input {
+    height: 72px;
+    font-size: 18px;
+    padding: 0 20px;
+    margin-bottom: 14px;
+    border-radius: 14px;
+  }
+
+  .register-cf-box {
+    width: 100%;
+    max-width: 276px;
+    height: 80px;
+  }
+
+  .register-submit {
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+}
